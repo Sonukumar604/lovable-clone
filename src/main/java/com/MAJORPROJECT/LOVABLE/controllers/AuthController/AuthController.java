@@ -1,7 +1,17 @@
 package com.MAJORPROJECT.LOVABLE.controllers.AuthController;
 
+import com.MAJORPROJECT.LOVABLE.dto.auth.AuthResponse;
+import com.MAJORPROJECT.LOVABLE.dto.auth.LoginRequest;
+import com.MAJORPROJECT.LOVABLE.dto.auth.SignUpRequest;
+import com.MAJORPROJECT.LOVABLE.dto.auth.UserProfileResponse;
 import com.MAJORPROJECT.LOVABLE.services.AuthService;
+import com.MAJORPROJECT.LOVABLE.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
+import org.apache.coyote.Response;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,5 +19,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 public class AuthController {
-    private final AuthService authService;
+    private  AuthService authService;
+    private UserService userService;
+    @PostMapping("/signup")
+    public ResponseEntity<AuthResponse> signup(SignUpRequest request){
+        return ResponseEntity.ok(authService.signup(request));
+
+    }
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(LoginRequest request){
+        return ResponseEntity.ok(authService.login(request));
+    }
+    @GetMapping("/me")
+    public ResponseEntity<UserProfileResponse> getProfile(){
+        Long userId = 1L;
+        return ResponseEntity.ok(userService.getProfile(userId));
+    }
 }
