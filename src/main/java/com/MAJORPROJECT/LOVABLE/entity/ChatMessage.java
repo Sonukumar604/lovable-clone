@@ -1,0 +1,23 @@
+package com.MAJORPROJECT.LOVABLE.entity;
+
+import com.MAJORPROJECT.LOVABLE.enums.MessageRole;
+import jakarta.persistence.Entity;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import java.time.Instant;
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class ChatMessage {
+    Long id;
+    ChatSession chatSession;
+    String content;
+    String toolCalls;
+    Integer tokensUsed;
+    Instant createdAt;
+    MessageRole role;
+}
