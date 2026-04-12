@@ -1,4 +1,4 @@
-package com.MAJORPROJECT.LOVABLE.controllers.AuthController;
+package com.MAJORPROJECT.LOVABLE.controllers;
 
 import com.MAJORPROJECT.LOVABLE.dto.project.ProjectRequest;
 import com.MAJORPROJECT.LOVABLE.dto.project.ProjectResponse;
@@ -27,21 +27,22 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.getUserProjectsById(id, userId));
     }
     @PostMapping
-    public ResponseEntity<ProjectResponse> createProject(@RequestMapping ProjectRequest request ){
+    public ResponseEntity<ProjectResponse> createProject(@RequestBody ProjectRequest request ){
         Long userId = 1L;
         return ResponseEntity.status(HttpStatus.CREATED).body(projectService.createProject(request, userId));
     }
     @PatchMapping("/{id}")
     public ResponseEntity<ProjectResponse> updateProject(@PathVariable Long id,
-                                                         @RequestMapping ProjectRequest request){
+                                                         @RequestBody  ProjectRequest request){
         Long userId = 1L;
-        return ResponseEntity.ok(projectService.updateProject(id, request, userid));
+        return ResponseEntity.ok(projectService.updateProject(id, request, userId));
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable Long id){
         Long userId = 1L;
         projectService.softDelete(id, userId);
         return ResponseEntity.noContent().build();
+
     }
 
 }

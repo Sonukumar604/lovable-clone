@@ -1,4 +1,4 @@
-package com.MAJORPROJECT.LOVABLE.controllers.AuthController;
+package com.MAJORPROJECT.LOVABLE.controllers;
 
 import com.MAJORPROJECT.LOVABLE.dto.auth.AuthResponse;
 import com.MAJORPROJECT.LOVABLE.dto.auth.LoginRequest;
