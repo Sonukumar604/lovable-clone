@@ -10,7 +10,7 @@ public interface ProjectMemberService {
 
     MemberResponse inviteMember(Long projectId, InviteMemberRequest request, Long userId);
 
-    Object updateMember(Long projectId, Long memberId, UpdateMemberRoleRequest request, Long userId);
-
     MemberResponse deleteProjectMember(Long projectId, Long memberId, Long userId);
+
+    MemberResponse updateMember(Long projectId, Long memberId, UpdateMemberRoleRequest request, Long userId);
 }

@@ -11,15 +11,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Member;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/projects/{projectId}/files")
 public class FileController {
     private final FileService fileService;
-    private final ProjectMemberService projectMemberService;
+
     @GetMapping
-    public ResponseEntity<FileNode> getFileTree(@PathVariable Long projectId){
+    public ResponseEntity<List<FileNode>> getFileTree(@PathVariable Long projectId){
         Long userId = 1L;
         return ResponseEntity.ok(fileService.getFileTree(projectId, userId));
 
@@ -31,17 +32,5 @@ public class FileController {
         return ResponseEntity.ok(fileService.getFileContent(projectId, path, userId));
 
     }
-    @PatchMapping("/{memberId}")
-    public ResponseEntity<MemberResponse> updateMemberRole(@PathVariable Long projectId,
-                                             @PathVariable Long memberId,
-                                             @RequestBody UpdateMemberRoleRequest request){
-        Long userId = 1L;
-        return ResponseEntity.ok(projectMemberService.updateMember(projectId,memberId,request,userId));
-    }
-    @DeleteMapping("/{memberId}")
-    public ResponseEntity<MemberResponse> updateMemberRole(@PathVariable Long projectId,
-                                                           @PathVariable Long memberId){
-        Long userId = 1L;
-        return ResponseEntity.ok(projectMemberService.deleteProjectMember(projectId,memberId,userId));
-    }
+
 }
