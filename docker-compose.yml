@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  postgres_lovable:
+    image: postgres:latest
+    container_name: postgres_lovable
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: khushi
+      POSTGRES_DB: postgres
+    ports:
+      - "9000:5432"
+    # Persist data to host folder. Adjust host path if you prefer a different location.
+    volumes:
+      - E:\DOCKER_LOVABLE:/var/lib/postgresql
+
+    restart: unless-stopped
+
+  campusconnect:
+    build:
+      context: D:\\campusConnect
+      dockerfile: Dockerfile
+    container_name: campusconnect
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:postgresql://postgres_lovable:5432/campus_connect_db
+      DB_USERNAME: postgres
+      DB_PASSWORD: khushi
+      SPRING_PROFILES_ACTIVE: dev
+    depends_on:
+      postgres_lovable:
+        condition: service_healthy
+
+  lovable:
+    build:
+      context: D:\\LOVABLE
+      dockerfile: Dockerfile
+    container_name: lovable
+    ports:
+      - "8081:8081"
+    environment:
+      DB_URL: jdbc:postgresql://postgres_lovable:5432/lovable_clone_db
+      DB_USERNAME: postgres
+      DB_PASSWORD: khushi
+      SPRING_PROFILES_ACTIVE: dev
+    depends_on:
+      postgres_lovable:
+        condition: service_healthy
